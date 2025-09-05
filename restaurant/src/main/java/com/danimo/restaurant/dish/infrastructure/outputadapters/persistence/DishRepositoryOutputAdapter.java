@@ -57,6 +57,7 @@ public class DishRepositoryOutputAdapter implements FindingDishByIdOutputPort,
 
 
     @Override
+    @Transactional(readOnly = true)
     public List<Dish> findAllDishes() {
         return dishDbEntityJpaRepository.findAll()
                 .stream()
