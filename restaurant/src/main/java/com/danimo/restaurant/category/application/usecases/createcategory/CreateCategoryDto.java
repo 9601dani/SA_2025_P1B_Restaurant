@@ -12,6 +12,6 @@ public class CreateCategoryDto {
     private CategoryCreatedAt categoryCreatedAt;
 
     public Category toDomain(){
-        return new Category(name, categoryCreatedAt);
+        return new Category(name.toUpperCase(), categoryCreatedAt);
     }
 }

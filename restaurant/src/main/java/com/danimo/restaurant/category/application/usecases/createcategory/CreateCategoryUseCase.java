@@ -21,7 +21,7 @@ public class CreateCategoryUseCase implements CreatingCategoryInputPort {
 
     @Override
     public Category create(CreateCategoryDto dto) throws CategoryAlreadyExistException {
-        if(findingCategoryByNameOutputPort.findByName(dto.getName()).isPresent()) {
+        if(findingCategoryByNameOutputPort.findByName(dto.getName().toUpperCase()).isPresent()) {
             throw new CategoryAlreadyExistException(dto.getName());
         }
 

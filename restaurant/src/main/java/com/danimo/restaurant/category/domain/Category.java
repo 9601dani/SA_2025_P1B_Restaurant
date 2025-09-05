@@ -15,4 +15,8 @@ import java.util.UUID;
 public class Category {
     private String name;
     private CategoryCreatedAt createdAt;
+
+    public Category(String name) {
+        this.name = name;
+    }
 }
