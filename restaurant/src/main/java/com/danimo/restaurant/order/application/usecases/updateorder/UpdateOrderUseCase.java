@@ -48,8 +48,10 @@ public class UpdateOrderUseCase implements UpdatingOrderInputPort {
             throw new EntityNotFoundException("El establecimiento no existe");
         }
 
-        if(!existClientOutputPort.existClient(dto.getNit())){
-            throw new EntityNotFoundException("El cliente no existe");
+        if (dto.getNit() != null && !dto.getNit().equals("CF")) {
+            if (!existClientOutputPort.existClient(dto.getNit())) {
+                throw new EntityNotFoundException("El cliente no existe");
+            }
         }
 
         if(!existEmployeeOutputPort.existEmployee(dto.getUserEmployeeId())){

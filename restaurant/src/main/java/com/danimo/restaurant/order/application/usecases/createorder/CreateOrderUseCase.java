@@ -35,8 +35,10 @@ public class CreateOrderUseCase implements CreatingOrderInputPort {
             throw new EntityNotFoundException("El establecimiento no existe");
         }
 
-        if(!existClientOutputPort.existClient(creationOrderDto.getNit())){
-            throw new EntityNotFoundException("El cliente no existe");
+        if (creationOrderDto.getNit() != null && !creationOrderDto.getNit().equals("CF")) {
+            if (!existClientOutputPort.existClient(creationOrderDto.getNit())) {
+                throw new EntityNotFoundException("El cliente no existe");
+            }
         }
 
         if(!existEmployeeOutputPort.existEmployee(creationOrderDto.getUserEmployeeId())){
