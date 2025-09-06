@@ -46,6 +46,7 @@ public class CreateOrderUseCase implements CreatingOrderInputPort {
         Order order = creationOrderDto.toDomain();
 
         order.recalculateTotals();
+        order.changeStatusWhenCreated();
 
         return storingOrderOutputPort.save(order);
     }

@@ -21,14 +21,12 @@ public class UpdateStateUseCase implements UpdatingStateOrderInputPort {
 
 
     @Override
-    public boolean update(UpdateStateDto dto) {
+    public Order update(UpdateStateDto dto) {
         Order order = findingOrderByIdOutputPort.findById(dto.getId())
                 .orElseThrow(() -> new EntityNotFoundException("La orden no existe"));
 
         order.changeStatus(dto.getStatus());
 
-        storingOrderOutputPort.save(order);
-
-        return true;
+        return storingOrderOutputPort.save(order);
     }
 }

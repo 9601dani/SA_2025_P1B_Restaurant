@@ -72,5 +72,9 @@ public class Order {
         this.updatedAt = OrderUpdatedAt.generate();
     }
 
+    public void changeStatusWhenCreated(){
+        this.status = OrderStatus.IN_PROGRESS;
+    }
+
 
 }

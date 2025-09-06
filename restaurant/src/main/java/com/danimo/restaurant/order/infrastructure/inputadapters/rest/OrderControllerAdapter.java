@@ -3,10 +3,12 @@ package com.danimo.restaurant.order.infrastructure.inputadapters.rest;
 import com.danimo.restaurant.common.infrastructure.annotations.WebAdapter;
 import com.danimo.restaurant.order.application.inputports.*;
 import com.danimo.restaurant.order.application.usecases.createorder.CreationOrderDto;
+import com.danimo.restaurant.order.application.usecases.updatestate.UpdateStateDto;
 import com.danimo.restaurant.order.domain.aggregate.Order;
 import com.danimo.restaurant.order.infrastructure.inputadapters.rest.dto.CreateOrderRequestDto;
 import com.danimo.restaurant.order.infrastructure.inputadapters.rest.dto.OrderResponse;
 import com.danimo.restaurant.order.infrastructure.inputadapters.rest.dto.UpdateOrderRquestDto;
+import com.danimo.restaurant.order.infrastructure.inputadapters.rest.dto.UpdateStatusRequestDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -53,6 +55,8 @@ public class OrderControllerAdapter {
     @Transactional
     public ResponseEntity<OrderResponse> createOrder(@RequestBody CreateOrderRequestDto dto){
         CreationOrderDto objectAdaptedFromRestToDomain = dto.toApplicationDto();
+
+        System.out.println("DTO recibido: " + dto);
 
         Order order = creatingOrderInputPort.createOrder(objectAdaptedFromRestToDomain);
 
@@ -107,8 +111,23 @@ public class OrderControllerAdapter {
     })
     @PutMapping
     @Transactional
-    public ResponseEntity<OrderResponse> updateLocation(@RequestBody UpdateOrderRquestDto dto) {
+    public ResponseEntity<OrderResponse> updateOrder(@RequestBody UpdateOrderRquestDto dto) {
         Order order = updatingOrderInputPort.updateOrder(dto.toApplicationDto());
+        return ResponseEntity.ok(OrderResponse.fromDomain(order));
+    }
+
+    @Operation(
+            summary = "Editar el estado de una orden",
+            description = "Devuelve la orden actualizada, como ya pagada."
+    )
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Orden pagada"),
+            @ApiResponse(responseCode = "404", description = "Orden no pagada")
+    })
+    @PutMapping("/status")
+    @Transactional
+    public ResponseEntity<OrderResponse> updateStatus(@RequestBody UpdateStatusRequestDto dto) {
+        Order order = updatingStateOrderInputPort.update(dto.toApplicationDto());
         return ResponseEntity.ok(OrderResponse.fromDomain(order));
     }
 }

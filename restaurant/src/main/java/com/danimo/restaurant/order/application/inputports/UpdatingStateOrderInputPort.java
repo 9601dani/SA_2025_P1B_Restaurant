@@ -1,7 +1,8 @@
 package com.danimo.restaurant.order.application.inputports;
 
 import com.danimo.restaurant.order.application.usecases.updatestate.UpdateStateDto;
+import com.danimo.restaurant.order.domain.aggregate.Order;
 
 public interface UpdatingStateOrderInputPort {
-    boolean update(UpdateStateDto dto);
+    Order update(UpdateStateDto dto);
 }

@@ -49,6 +49,8 @@ public class OrderRepositoryOutputAdapter implements FindingAllOrdersOutputPort,
     public Order save(Order order) {
         OrderDbEntity orderDbEntity = orderPersistenceMapper.toDbEntity(order);
 
-        return orderPersistenceMapper.toDomain(orderDbEntity);
+        OrderDbEntity saved = orderDbEntityJpaRepository.save(orderDbEntity);
+
+        return orderPersistenceMapper.toDomain(saved);
     }
 }

@@ -18,14 +18,12 @@ public class RestaurantApplication {
 				.baseUrl("http://localhost:8000/v1/clients/check/")
 				.build();
 	}
-
 	@Bean("UserRestApi")
 	public RestClient restUserClient() {
 		return RestClient.builder()
 				.baseUrl("http://localhost:8000/v1/users/check/")
 				.build();
 	}
-
 	@Bean("LocationRestApi")
 	public RestClient restLocationClient() {
 		return RestClient.builder()

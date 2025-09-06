@@ -14,10 +14,24 @@ import java.util.List;
 public class OrderPersistenceMapper {
     public OrderDbEntity toDbEntity(Order order) {
         OrderDbEntity entity = new OrderDbEntity();
+        entity.setId(order.getId().getOrderId());
+        entity.setDescription(order.getDescription());
+        entity.setLocationId(order.getLocationId());
+        entity.setNit(order.getNit());
+        entity.setStatus(order.getStatus());
+        entity.setSubTotal(order.getSubTotal().getSubtotal());
+        entity.setDiscount(order.getDiscount().getDiscount());
+        entity.setTax(order.getTax().getTax());
+        entity.setTotal(order.getTotal());
+        entity.setCreatedAt(order.getCreatedAt().getCreatedAt());
+        entity.setUpdatedAt(order.getUpdatedAt().getUpdatedAt());
+        entity.setUserEmployeeId(order.getUserEmployeeId());
+
         List<ItemDbEntity> items = order.getItems().stream()
                 .map(i -> toDbEntity(i, entity))
                 .toList();
         entity.setItems(items);
+
         return entity;
     }
 
@@ -25,6 +39,7 @@ public class OrderPersistenceMapper {
         List<Item> items = entity.getItems().stream()
                 .map(this::toDomainItem)
                 .toList();
+
         return new Order(
                 OrderId.fromUUID(entity.getId()),
                 entity.getDescription(),
@@ -35,8 +50,8 @@ public class OrderPersistenceMapper {
                 OrderDiscount.fromBigDecimal(entity.getDiscount()),
                 OrderTax.fromBigDecimal(entity.getTax()),
                 entity.getTotal(),
-                OrderCreatedAt.fromLocalDateTime(entity.getUpdatedAt()),
-                OrderUpdatedAt.fromLocalDateTime(entity.getCreatedAt()),
+                OrderCreatedAt.fromLocalDateTime(entity.getCreatedAt()),
+                OrderUpdatedAt.fromLocalDateTime(entity.getUpdatedAt()),
                 entity.getUserEmployeeId(),
                 items
         );
