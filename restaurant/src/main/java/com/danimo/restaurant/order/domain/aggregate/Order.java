@@ -19,7 +19,7 @@ public class Order {
     private OrderId id;
     private String description;
     private UUID locationId;
-    private String nit;
+    private String idClient;
     private OrderStatus status;
     private OrderSubtotal subTotal;
     private OrderDiscount discount;

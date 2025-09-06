@@ -31,7 +31,7 @@ public class UpdateOrderDto {
                 OrderId.fromUUID(orderId),
                 description != null ? description : current.getDescription(),
                 locationId != null ? locationId : current.getLocationId(),
-                nit != null ? nit : current.getNit(),
+                nit != null ? nit : current.getIdClient(),
                 status != null ? status : current.getStatus(),
                 null,
                 current.getDiscount() != null ? current.getDiscount() : OrderDiscount.zero(),

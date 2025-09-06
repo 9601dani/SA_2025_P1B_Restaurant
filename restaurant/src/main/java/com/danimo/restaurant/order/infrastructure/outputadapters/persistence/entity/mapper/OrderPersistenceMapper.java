@@ -17,7 +17,7 @@ public class OrderPersistenceMapper {
         entity.setId(order.getId().getOrderId());
         entity.setDescription(order.getDescription());
         entity.setLocationId(order.getLocationId());
-        entity.setNit(order.getNit());
+        entity.setIdClient(order.getIdClient());
         entity.setStatus(order.getStatus());
         entity.setSubTotal(order.getSubTotal().getSubtotal());
         entity.setDiscount(order.getDiscount().getDiscount());
@@ -44,7 +44,7 @@ public class OrderPersistenceMapper {
                 OrderId.fromUUID(entity.getId()),
                 entity.getDescription(),
                 entity.getLocationId(),
-                entity.getNit(),
+                entity.getIdClient(),
                 entity.getStatus(),
                 OrderSubtotal.fromBigDecimal(entity.getSubTotal()),
                 OrderDiscount.fromBigDecimal(entity.getDiscount()),

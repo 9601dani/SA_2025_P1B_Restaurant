@@ -28,7 +28,7 @@ public class OrderDbEntity {
     @Column
     private UUID locationId;
     @Column
-    private String nit;
+    private String idClient;
     @Enumerated(EnumType.STRING)
     private OrderStatus status;
     @Column

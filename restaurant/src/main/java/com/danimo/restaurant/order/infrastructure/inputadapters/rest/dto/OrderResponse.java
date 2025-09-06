@@ -25,7 +25,7 @@ public class OrderResponse {
         return new OrderResponse(
                 order.getId().getOrderId(),
                 order.getDescription(),
-                order.getNit(),
+                order.getIdClient(),
                 order.getLocationId(),
                 order.getUserEmployeeId(),
                 order.getStatus().name(),

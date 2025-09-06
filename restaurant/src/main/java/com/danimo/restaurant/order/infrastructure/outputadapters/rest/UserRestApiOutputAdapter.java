@@ -4,6 +4,7 @@ import com.danimo.restaurant.order.application.outputports.rest.ExistEmployeeOut
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestClient;
 import org.springframework.web.client.RestClientResponseException;
 
@@ -18,6 +19,7 @@ public class UserRestApiOutputAdapter implements ExistEmployeeOutputPort {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public boolean existEmployee(UUID employeeId) {
         try {
             restClient.head()

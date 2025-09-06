@@ -3,7 +3,6 @@ package com.danimo.restaurant.order.infrastructure.inputadapters.rest;
 import com.danimo.restaurant.common.infrastructure.annotations.WebAdapter;
 import com.danimo.restaurant.order.application.inputports.*;
 import com.danimo.restaurant.order.application.usecases.createorder.CreationOrderDto;
-import com.danimo.restaurant.order.application.usecases.updatestate.UpdateStateDto;
 import com.danimo.restaurant.order.domain.aggregate.Order;
 import com.danimo.restaurant.order.infrastructure.inputadapters.rest.dto.CreateOrderRequestDto;
 import com.danimo.restaurant.order.infrastructure.inputadapters.rest.dto.OrderResponse;
@@ -20,7 +19,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.UUID;
 
 @Tag(name = "Orders", description = "Operaciones realcionadas a las ordenes")
 @RestController
@@ -56,7 +54,6 @@ public class OrderControllerAdapter {
     public ResponseEntity<OrderResponse> createOrder(@RequestBody CreateOrderRequestDto dto){
         CreationOrderDto objectAdaptedFromRestToDomain = dto.toApplicationDto();
 
-        System.out.println("DTO recibido: " + dto);
 
         Order order = creatingOrderInputPort.createOrder(objectAdaptedFromRestToDomain);
 
@@ -76,12 +73,12 @@ public class OrderControllerAdapter {
     @GetMapping
     @Transactional
     public ResponseEntity<List<OrderResponse>> getAllOrdes() {
-        List<OrderResponse> locations = listingAllOrderInputPort.getAllOrders()
+        List<OrderResponse> orders = listingAllOrderInputPort.getAllOrders()
                 .stream()
                 .map(OrderResponse::fromDomain)
                 .toList();
 
-        return ResponseEntity.ok(locations);
+        return ResponseEntity.ok(orders);
     }
 
 
@@ -95,7 +92,7 @@ public class OrderControllerAdapter {
     })
     @GetMapping("/{id}")
     @Transactional
-    public ResponseEntity<OrderResponse> getLocationById(@PathVariable String id) {
+    public ResponseEntity<OrderResponse> getOrderById(@PathVariable String id) {
         Order order = findingOrderByIdInputPort.findById(id);
 
         return ResponseEntity.ok(OrderResponse.fromDomain(order));

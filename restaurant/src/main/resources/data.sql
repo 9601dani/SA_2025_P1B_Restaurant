@@ -16,30 +16,29 @@ INSERT INTO dish (id, name, description, price, category, created_at, updated_at
 -- Órdenes de ejemplo
 -- =======================
 INSERT INTO orders (
-    id, description, location_id, nit, status,
+    id, description, location_id, id_client, status,
     sub_total, discount, tax, total,
     created_at, updated_at, user_employee_id
 ) VALUES
--- Orden 1 en Sucursal Norte con cliente admin
+-- Orden 1 en Sucursal Norte con cliente Juan Pérez (1667958K)
 ('11111111-1111-1111-1111-111111111111',
  'Orden de prueba - Mesa 1',
  '123e4567-e89b-12d3-a456-426614174001',
- 'admin',                                  -- nit = usernameClient
+ '1667958K',
  'CREATED',
  22.49, 0.00, 2.70, 25.19,
  '2025-09-05 12:00:00', '2025-09-05 12:00:00',
  '44f7dc96-003a-4bb3-8c4d-dfbf04c42720'),
 
--- Orden 2 en Sucursal Sur con cliente admin2
+-- Orden 2 en Sucursal Sur con cliente María López (1234567A)
 ('22222222-2222-2222-2222-222222222222',
  'Orden de prueba - Mesa 2',
  '123e4567-e89b-12d3-a456-426614174002',
- 'admin2',
+ '1234567A',
  'IN_PROGRESS',
  18.99, 1.00, 2.15, 20.14,
  '2025-09-05 13:00:00', '2025-09-05 13:30:00',
  '44f7dc96-003a-4bb3-8c4d-dfbf04c42721');
-
 
 -- =======================
 -- Ítems de ejemplo
