@@ -1,6 +1,5 @@
 package com.danimo.restaurant.dish.infrastructure.outputadapters.persistence.entity;
 
-import com.danimo.restaurant.category.infrastructure.outputadapters.persistence.entity.CategoryDbEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
