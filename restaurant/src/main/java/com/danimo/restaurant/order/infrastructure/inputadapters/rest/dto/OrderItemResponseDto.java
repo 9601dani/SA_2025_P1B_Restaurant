@@ -1,5 +1,6 @@
 package com.danimo.restaurant.order.infrastructure.inputadapters.rest.dto;
 
+import com.danimo.restaurant.order.domain.entity.Item;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Value;
 
@@ -18,7 +19,7 @@ public class OrderItemResponseDto {
     BigDecimal unitPrice;
     BigDecimal lineTotal;
 
-    public static OrderItemResponseDto fromDomain(com.danimo.restaurant.order.domain.entity.Item item) {
+    public static OrderItemResponseDto fromDomain(Item item) {
         return new OrderItemResponseDto(
                 item.getDishId().getId(),
                 item.getDishNameSnapshot(),

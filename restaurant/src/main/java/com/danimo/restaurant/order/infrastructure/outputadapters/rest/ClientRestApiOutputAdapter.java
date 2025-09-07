@@ -21,7 +21,6 @@ public class ClientRestApiOutputAdapter implements ExistClientOutputPort {
     public boolean existClient(String id) {
         String normalized = id.replace("-", "").trim().toUpperCase();
         try {
-            System.out.println("MANDANDO YA : " + normalized);
             clientRestClient.head()
                     .uri(normalized)
                     .retrieve()

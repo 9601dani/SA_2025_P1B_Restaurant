@@ -25,7 +25,7 @@ INSERT INTO orders (
  'Orden de prueba - Mesa 1',
  '123e4567-e89b-12d3-a456-426614174001',
  '1667958K',
- 'CREATED',
+ 'IN_PROGRESS',
  22.49, 0.00, 2.70, 25.19,
  '2025-09-05 12:00:00', '2025-09-05 12:00:00',
  '44f7dc96-003a-4bb3-8c4d-dfbf04c42720'),
@@ -43,7 +43,7 @@ INSERT INTO orders (
 -- =======================
 -- Ítems de ejemplo
 -- =======================
-INSERT INTO items (
+INSERT INTO item (
     id, dish_id, dish_name, quantity, unit_price, line_total, order_id
 ) VALUES
 -- Items para Orden 1

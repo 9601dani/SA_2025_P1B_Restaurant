@@ -11,7 +11,7 @@ public class OrderDiscount {
 
     public OrderDiscount(BigDecimal discount) {
         if(discount == null) {
-            throw new NullPointerException("El descuento no puede ser nulo");
+            discount = BigDecimal.ZERO;
         }
 
         if(discount.compareTo(BigDecimal.ZERO) < 0) {

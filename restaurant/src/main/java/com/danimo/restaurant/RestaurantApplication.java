@@ -30,6 +30,12 @@ public class RestaurantApplication {
 				.baseUrl("http://localhost:8000/v1/locations/check/")
 				.build();
 	}
+	@Bean("BillRestApi")
+	public RestClient restBillClient() {
+		return RestClient.builder()
+				.baseUrl("http://localhost:8000/v1/bills")
+				.build();
+	}
 
 
 }
