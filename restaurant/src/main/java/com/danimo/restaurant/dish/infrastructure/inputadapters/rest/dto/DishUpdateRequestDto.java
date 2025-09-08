@@ -22,6 +22,7 @@ public class DishUpdateRequestDto {
     private final LocalDateTime createdAt;
     private final LocalDateTime updatedAt;
     private final String portion;
+    private final String imageUrl;
 
     public UpdateDishDto toDomain(){
         return new UpdateDishDto(
@@ -32,7 +33,8 @@ public class DishUpdateRequestDto {
                 new Category(category),
                 DishCreatedAt.fromDomain(createdAt),
                 DishUpdatedAt.fromDomain(updatedAt),
-                portion
+                portion,
+                imageUrl
         );
     }
 

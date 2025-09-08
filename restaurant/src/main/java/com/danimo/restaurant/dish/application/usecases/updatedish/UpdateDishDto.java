@@ -19,5 +19,6 @@ public class UpdateDishDto {
     private DishCreatedAt createdAt;
     private DishUpdatedAt updatedAt;
     private String portion;
+    private String imageUrl;
 
 }

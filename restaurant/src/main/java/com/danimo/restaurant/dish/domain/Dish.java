@@ -19,4 +19,5 @@ public class Dish {
     private Category category;
     private DishCreatedAt createdAt;
     private DishUpdatedAt updatedAt;
+    private String imageUrl;
 }

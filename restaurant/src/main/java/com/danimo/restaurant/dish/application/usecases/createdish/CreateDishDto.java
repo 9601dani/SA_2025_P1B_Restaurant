@@ -16,6 +16,7 @@ public class CreateDishDto {
     private String category;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
+    private String imageUrl;
 
     public Dish toDomain() {
         return new Dish(
@@ -25,7 +26,8 @@ public class CreateDishDto {
                 DishPrice.fromBigDecimal(price),
                 new Category(category),
                 DishCreatedAt.generate(),
-                DishUpdatedAt.generate()
+                DishUpdatedAt.generate(),
+                imageUrl
         );
 
     }

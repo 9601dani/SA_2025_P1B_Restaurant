@@ -14,6 +14,7 @@ public class CreateDishRequestDto {
     private String category;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
+    private String imageUrl;
 
     public CreateDishDto toDomain() {
         return new CreateDishDto(
@@ -22,7 +23,8 @@ public class CreateDishRequestDto {
                 price,
                 category,
                 createdAt,
-                updatedAt
+                updatedAt,
+                imageUrl
         );
     }
 }

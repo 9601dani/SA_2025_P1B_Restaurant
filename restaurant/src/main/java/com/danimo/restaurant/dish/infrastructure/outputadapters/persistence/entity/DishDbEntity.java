@@ -34,4 +34,6 @@ public class DishDbEntity {
     private LocalDateTime createdAt;
     @Column
     private LocalDateTime updatedAt;
+    @Column
+    private String imageUrl;
 }

@@ -30,6 +30,7 @@ public class UpdateDishUseCase implements UpdatingDishInputPort {
         dish.setCategory(dto.getCategory());
         dish.setCreatedAt(dto.getCreatedAt());
         dish.setUpdatedAt(DishUpdatedAt.generate());
+        dish.setImageUrl(dto.getImageUrl());
 
         return storingDishOutputPort.save(dish);
     }
