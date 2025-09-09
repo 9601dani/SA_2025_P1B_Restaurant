@@ -21,7 +21,7 @@ public class UpdateOrderItemRequestDto {
     BigDecimal unitPrice;
 
     public UpdateOrderItemDto toApplicationDto() {
-        return new com.danimo.restaurant.order.application.usecases.updateorder.UpdateOrderItemDto(
+        return new UpdateOrderItemDto(
                 itemId,
                 dishId,
                 dishName,

@@ -33,7 +33,6 @@ public class UpdateStateUseCase implements UpdatingStateOrderInputPort {
         order.changeStatus(dto.getStatus());
         Order savedOrder = storingOrderOutputPort.save(order);
         if (dto.getStatus() == OrderStatus.COMPLETED) {
-            System.out.println("MANDARE A LA ORDEN");
           if(!creatingBillOutputPort.createBill(savedOrder)){
               throw new EntityNotFoundException("La factura no pudo generarse para la orden");
           }

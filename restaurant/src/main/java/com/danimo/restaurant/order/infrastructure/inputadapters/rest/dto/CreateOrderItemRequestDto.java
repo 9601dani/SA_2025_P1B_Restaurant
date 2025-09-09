@@ -19,7 +19,7 @@ public class CreateOrderItemRequestDto {
     BigDecimal unitPrice;
 
     public CreationOrderItemDto toApplicationDto() {
-        return new com.danimo.restaurant.order.application.usecases.createorder.CreationOrderItemDto(
+        return new CreationOrderItemDto(
                 dishId,
                 dishName,
                 quantity,

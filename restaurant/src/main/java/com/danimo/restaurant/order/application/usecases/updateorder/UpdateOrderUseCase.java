@@ -39,8 +39,7 @@ public class UpdateOrderUseCase implements UpdatingOrderInputPort {
         Order current = findingOrderByIdOutputPort.findById(dto.getOrderId())
                 .orElseThrow(() -> new EntityNotFoundException("La orden no existe"));
 
-        if(current.getStatus().equals(OrderStatus.CANCELLED) || current.getStatus().equals(OrderStatus.COMPLETED) ||
-                current.getStatus().equals(OrderStatus.NOT_AUTHORIZED)) {
+        if(current.getStatus().equals(OrderStatus.CANCELLED) || current.getStatus().equals(OrderStatus.COMPLETED)) {
             throw new OrderAlreadyCompletedException("La orden ya no puede ser modificada");
         }
 

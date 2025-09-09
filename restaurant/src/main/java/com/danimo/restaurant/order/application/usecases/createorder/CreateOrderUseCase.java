@@ -36,7 +36,6 @@ public class CreateOrderUseCase implements CreatingOrderInputPort {
         }
 
         if (creationOrderDto.getNit() != null && !creationOrderDto.getNit().equals("CF")) {
-            System.out.println("Nit: " + creationOrderDto.getNit());
             if (!existClientOutputPort.existClient(creationOrderDto.getNit())) {
                 throw new EntityNotFoundException("El cliente no existe");
             }
