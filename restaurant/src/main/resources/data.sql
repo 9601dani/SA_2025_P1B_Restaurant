@@ -17,7 +17,7 @@ INSERT INTO dish (id, name, description, price, category, created_at, updated_at
 -- =======================
 INSERT INTO orders (
     id, description, location_id, id_client, status,
-    sub_total, discount, tax, total,
+    sub_total, discount_amount, discount_code, tax, total,
     created_at, updated_at, user_employee_id
 ) VALUES
 -- Orden 1 en Sucursal Norte con cliente Juan Pérez (1667958K)
@@ -26,7 +26,7 @@ INSERT INTO orders (
  '123e4567-e89b-12d3-a456-426614174001',
  '1667958K',
  'IN_PROGRESS',
- 22.49, 0.00, 2.70, 25.19,
+ 22.49, 0.00, '', 2.70, 25.19,
  '2025-09-05 12:00:00', '2025-09-05 12:00:00',
  '44f7dc96-003a-4bb3-8c4d-dfbf04c42720'),
 
@@ -36,9 +36,10 @@ INSERT INTO orders (
  '123e4567-e89b-12d3-a456-426614174002',
  '1234567A',
  'IN_PROGRESS',
- 18.99, 1.00, 2.15, 20.14,
+ 18.99, 1.00, 'PROMO1', 2.15, 20.14,
  '2025-09-05 13:00:00', '2025-09-05 13:30:00',
  '44f7dc96-003a-4bb3-8c4d-dfbf04c42721');
+
 
 -- =======================
 -- Ítems de ejemplo

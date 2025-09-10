@@ -4,10 +4,7 @@ import com.danimo.restaurant.order.application.outputports.rest.CreatingBillOutp
 import com.danimo.restaurant.order.domain.aggregate.Order;
 import com.danimo.restaurant.order.infrastructure.outputadapters.rest.dto.CreateBillRequestDto;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestClient;
 
 @Component
@@ -19,7 +16,6 @@ public class BillingRestApiOutputAdapter implements CreatingBillOutputPort {
     }
 
     @Override
-    @Transactional(propagation = Propagation.MANDATORY)
     public boolean createBill(Order order) {
         try {
             CreateBillRequestDto dto = CreateBillRequestDto.fromOrder(order);

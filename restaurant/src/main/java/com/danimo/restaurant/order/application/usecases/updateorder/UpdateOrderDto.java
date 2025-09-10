@@ -20,6 +20,8 @@ public class UpdateOrderDto {
     private String nit;
     private UUID userEmployeeId;
     private OrderStatus status;
+    private String code;
+    private BigDecimal discount;
     private List<UpdateOrderItemDto> items;
 
     public Order applyChanges(Order current){
@@ -34,7 +36,7 @@ public class UpdateOrderDto {
                 nit != null ? nit : current.getIdClient(),
                 status != null ? status : current.getStatus(),
                 null,
-                current.getDiscount() != null ? current.getDiscount() : OrderDiscount.zero(),
+                current.getDiscount() != null ? current.getDiscount() : OrderDiscount.fromBigdecimalAndCode(discount,code),
                 null,
                 BigDecimal.ZERO,
                 current.getCreatedAt(),

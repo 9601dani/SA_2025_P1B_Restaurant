@@ -6,8 +6,10 @@ import com.danimo.restaurant.order.domain.entity.Item;
 import com.danimo.restaurant.order.domain.vo.*;
 import com.danimo.restaurant.order.infrastructure.outputadapters.persistence.entity.ItemDbEntity;
 import com.danimo.restaurant.order.infrastructure.outputadapters.persistence.entity.OrderDbEntity;
+import com.danimo.restaurant.order.infrastructure.outputadapters.persistence.entity.OrderDiscountEmbeddable;
 import org.springframework.stereotype.Component;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Component
@@ -20,7 +22,7 @@ public class OrderPersistenceMapper {
         entity.setIdClient(order.getIdClient());
         entity.setStatus(order.getStatus());
         entity.setSubTotal(order.getSubTotal().getSubtotal());
-        entity.setDiscount(order.getDiscount().getDiscount());
+        entity.setDiscount(toEmbeddable(order.getDiscount()));
         entity.setTax(order.getTax().getTax());
         entity.setTotal(order.getTotal());
         entity.setCreatedAt(order.getCreatedAt().getCreatedAt());
@@ -40,6 +42,8 @@ public class OrderPersistenceMapper {
                 .map(this::toDomainItem)
                 .toList();
 
+        OrderDiscount discount = toDomainDiscount(entity.getDiscount());
+
         return new Order(
                 OrderId.fromUUID(entity.getId()),
                 entity.getDescription(),
@@ -47,7 +51,7 @@ public class OrderPersistenceMapper {
                 entity.getIdClient(),
                 entity.getStatus(),
                 OrderSubtotal.fromBigDecimal(entity.getSubTotal()),
-                OrderDiscount.fromBigDecimal(entity.getDiscount()),
+                discount,
                 OrderTax.fromBigDecimal(entity.getTax()),
                 entity.getTotal(),
                 OrderCreatedAt.fromLocalDateTime(entity.getCreatedAt()),
@@ -78,5 +82,20 @@ public class OrderPersistenceMapper {
                 entity.getUnitPrice(),
                 ItemLineTotal.fromBigDecimal(entity.getLineTotal())
         );
+    }
+
+    private OrderDiscountEmbeddable toEmbeddable(OrderDiscount discount) {
+        if (discount == null) {
+            return new OrderDiscountEmbeddable(BigDecimal.ZERO, "");
+        }
+        BigDecimal amount = discount.getDiscount() != null ? discount.getDiscount() : BigDecimal.ZERO;
+        String code = discount.getCode() != null ? discount.getCode() : "";
+        return new OrderDiscountEmbeddable(amount, code);
+    }
+
+    private OrderDiscount toDomainDiscount(OrderDiscountEmbeddable emb) {
+        BigDecimal amount = (emb != null && emb.getAmount() != null) ? emb.getAmount() : BigDecimal.ZERO;
+        String code = (emb != null && emb.getCode() != null) ? emb.getCode() : "";
+        return new OrderDiscount(amount, code);
     }
 }

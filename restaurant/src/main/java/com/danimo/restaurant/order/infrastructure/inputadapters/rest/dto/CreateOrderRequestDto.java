@@ -4,6 +4,7 @@ import com.danimo.restaurant.order.application.usecases.createorder.CreationOrde
 import jakarta.validation.constraints.NotBlank;
 import lombok.Value;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
 
@@ -16,6 +17,8 @@ public class CreateOrderRequestDto {
     String nit;
     @NotBlank
     UUID userEmployeeId;
+    String discountCode;
+    BigDecimal discountAmount;
     List<CreateOrderItemRequestDto> items;
 
     public CreationOrderDto toApplicationDto() {
@@ -24,6 +27,8 @@ public class CreateOrderRequestDto {
                 locationId,
                 nit,
                 userEmployeeId,
+                discountCode,
+                discountAmount,
                 items.stream().map(CreateOrderItemRequestDto::toApplicationDto).toList()
         );
     }

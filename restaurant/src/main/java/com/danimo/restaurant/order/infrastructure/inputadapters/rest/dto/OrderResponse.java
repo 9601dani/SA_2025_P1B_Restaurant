@@ -17,6 +17,7 @@ public class OrderResponse {
     String status;
     BigDecimal subtotal;
     BigDecimal tax;
+    String code;
     BigDecimal discount;
     BigDecimal total;
     List<OrderItemResponseDto> items;
@@ -31,6 +32,7 @@ public class OrderResponse {
                 order.getStatus().name(),
                 order.getSubTotal().getSubtotal(),
                 order.getTax().getTax(),
+                order.getDiscount().getCode(),
                 order.getDiscount().getDiscount(),
                 order.getTotal(),
                 order.getItems().stream().map(OrderItemResponseDto::fromDomain).toList()

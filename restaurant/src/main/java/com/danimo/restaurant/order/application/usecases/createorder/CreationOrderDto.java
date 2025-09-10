@@ -15,6 +15,8 @@ public class CreationOrderDto {
     private final UUID locationId;
     private final String nit;
     private final UUID userEmployeeId;
+    private final String code;
+    private final BigDecimal discount;
     private final List<CreationOrderItemDto> items;
 
     public Order toDomain(){
@@ -29,7 +31,10 @@ public class CreationOrderDto {
                 nit,
                 OrderStatus.CREATED,
                 null,
-                OrderDiscount.zero(),
+                OrderDiscount.fromBigdecimalAndCode(
+                        discount != null ? discount : BigDecimal.ZERO,
+                        code != null ? code : ""
+                ),
                 null,
                 BigDecimal.ZERO,
                 OrderCreatedAt.generate(),

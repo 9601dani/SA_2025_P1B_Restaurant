@@ -33,8 +33,8 @@ public class OrderDbEntity {
     private OrderStatus status;
     @Column
     private BigDecimal subTotal;
-    @Column
-    private BigDecimal discount;
+    @Embedded
+    private OrderDiscountEmbeddable discount;
     @Column
     private BigDecimal tax;
     @Column

@@ -8,23 +8,21 @@ import java.math.BigDecimal;
 public class OrderDiscount {
 
     private BigDecimal discount;
+    private String code;
 
-    public OrderDiscount(BigDecimal discount) {
-        if(discount == null) {
-            discount = BigDecimal.ZERO;
-        }
+    public OrderDiscount(BigDecimal discount, String code) {
+        BigDecimal safeDiscount = (discount == null) ? BigDecimal.ZERO : discount;
+        String safeCode = (code == null) ? "" : code;
 
-        if(discount.compareTo(BigDecimal.ZERO) < 0) {
+        if (safeDiscount.compareTo(BigDecimal.ZERO) < 0) {
             throw new IllegalArgumentException("El descuento no puede ser negativo");
         }
+        this.discount = safeDiscount;
+        this.code = safeCode;
 
-        this.discount = discount;
     }
-    public static OrderDiscount fromBigDecimal(BigDecimal discount) {
-        return new OrderDiscount(discount);
-    }
-    public static OrderDiscount zero() {
-        return new OrderDiscount(BigDecimal.ZERO);
+    public static OrderDiscount fromBigdecimalAndCode(BigDecimal discount, String code) {
+        return new OrderDiscount(discount, code);
     }
 
 }

@@ -3,6 +3,7 @@ package com.danimo.restaurant.order.infrastructure.outputadapters.rest.dto;
 import com.danimo.restaurant.order.domain.aggregate.Order;
 import lombok.Value;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
 
@@ -13,6 +14,7 @@ public class CreateBillRequestDto {
     private String clientName;
     private String billTypeService;
     private String moneda;
+    private BigDecimal discount;
     private List<CreateBillItemRequestDto> items;
 
     public static CreateBillRequestDto fromOrder(Order order) {
@@ -22,6 +24,7 @@ public class CreateBillRequestDto {
                 order.getDescription(),
                 "RESTAURANT",
                 "GTQ",
+                order.getDiscount().getDiscount(),
                 order.getItems().stream()
                         .map(i -> new CreateBillItemRequestDto(
                                 i.getDishNameSnapshot(),

@@ -42,20 +42,18 @@ public class Order {
         if(this.subTotal == null) {
             throw new IllegalStateException("El subtotal es nulo, no se puede calcular los impuestos");
         }
-        BigDecimal taxValue = this.subTotal.getSubtotal().multiply(TAX_RATE);
+        BigDecimal base = this.subTotal.getSubtotal().subtract(this.discount.getDiscount());
+        BigDecimal taxValue = base.multiply(TAX_RATE);
         this.tax = OrderTax.fromBigDecimal(taxValue);
     }
 
     private void calculateTotal() {
-        if(this.subTotal == null) {
-            throw new IllegalStateException("El subtotal es nulo, no se puede calcular el total");
-        }
-        if(this.tax == null) {
-            throw new IllegalArgumentException("El tax es nulo, no se puede calcular el total");
+        if(this.subTotal == null || this.tax == null) {
+            throw new IllegalStateException("Subtotal o tax nulos, no se puede calcular el total");
         }
         this.total = this.subTotal.getSubtotal()
-                .add(this.tax.getTax())
-                .subtract(this.discount.getDiscount());
+                .subtract(this.discount.getDiscount())
+                .add(this.tax.getTax());
     }
 
     public void recalculateTotals() {
