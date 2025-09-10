@@ -36,6 +36,12 @@ public class RestaurantApplication {
 				.baseUrl("http://localhost:8000/v1/bills")
 				.build();
 	}
+	@Bean("MovementRestApi")
+	public RestClient restMovementClient() {
+		return RestClient.builder()
+				.baseUrl("http://localhost:8000/v1/reports")
+				.build();
+	}
 
 
 }
