@@ -6,6 +6,7 @@ import com.danimo.restaurant.dish.application.inputports.UpdatingDishInputPort;
 import com.danimo.restaurant.dish.application.outputports.persistence.FindingDishByIdOutputPort;
 import com.danimo.restaurant.dish.application.outputports.persistence.StoringDishOutputPort;
 import com.danimo.restaurant.dish.domain.Dish;
+import com.danimo.restaurant.dish.domain.DishCost;
 import com.danimo.restaurant.dish.domain.DishUpdatedAt;
 import org.springframework.beans.factory.annotation.Autowired;
 @UseCase
@@ -24,14 +25,15 @@ public class UpdateDishUseCase implements UpdatingDishInputPort {
         Dish dish = findingDishByIdOutputPort.findById(dto.getDishId().getId())
                 .orElseThrow(() -> new DishNotFoundException("No se encontro el platillo"));
 
-        dish.setName(dto.getName());
-        dish.setDescription(dto.getDescription());
-        dish.setPrice(dto.getPrice());
-        dish.setCategory(dto.getCategory());
-        dish.setCreatedAt(dto.getCreatedAt());
-        dish.setUpdatedAt(DishUpdatedAt.generate());
-        dish.setImageUrl(dto.getImageUrl());
+        Dish updated = dish.update(
+                dto.getName(),
+                dto.getDescription(),
+                dto.getPrice(),
+                dto.getCategory().getName(),
+                dto.getImageUrl(),
+                dto.getDishCost()
+        );
 
-        return storingDishOutputPort.save(dish);
+        return storingDishOutputPort.save(updated);
     }
 }

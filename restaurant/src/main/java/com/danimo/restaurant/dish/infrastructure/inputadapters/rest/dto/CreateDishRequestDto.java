@@ -15,6 +15,7 @@ public class CreateDishRequestDto {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     private String imageUrl;
+    private BigDecimal dishCost;
 
     public CreateDishDto toDomain() {
         return new CreateDishDto(
@@ -24,7 +25,8 @@ public class CreateDishRequestDto {
                 category,
                 createdAt,
                 updatedAt,
-                imageUrl
+                imageUrl,
+                dishCost
         );
     }
 }

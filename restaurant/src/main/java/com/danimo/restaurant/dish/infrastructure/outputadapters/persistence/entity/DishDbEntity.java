@@ -36,4 +36,6 @@ public class DishDbEntity {
     private LocalDateTime updatedAt;
     @Column
     private String imageUrl;
+    @Column
+    private BigDecimal dishCost;
 }

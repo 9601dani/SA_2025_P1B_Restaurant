@@ -16,6 +16,7 @@ public class DishResponse {
     private final LocalDateTime createdAt;
     private final LocalDateTime updatedAt;
     private final String imageUrl;
+    private final BigDecimal dishCost;
 
     public static DishResponse fromDomain(Dish dish) {
         return new DishResponse(
@@ -26,7 +27,8 @@ public class DishResponse {
                 dish.getCategory().getName(),
                 dish.getCreatedAt().getCreatedAt(),
                 dish.getUpdatedAt().getUpdatedAt(),
-                dish.getImageUrl()
+                dish.getImageUrl(),
+                dish.getDishCost().getCost()
         );
     }
 }

@@ -1,12 +1,11 @@
 package com.danimo.restaurant.dish.application.usecases.updatedish;
 
 import com.danimo.restaurant.category.domain.Category;
-import com.danimo.restaurant.dish.domain.DishCreatedAt;
-import com.danimo.restaurant.dish.domain.DishId;
-import com.danimo.restaurant.dish.domain.DishPrice;
-import com.danimo.restaurant.dish.domain.DishUpdatedAt;
+import com.danimo.restaurant.dish.domain.*;
 import lombok.AllArgsConstructor;
 import lombok.Value;
+
+import java.math.BigDecimal;
 
 @Value
 @AllArgsConstructor
@@ -20,5 +19,6 @@ public class UpdateDishDto {
     private DishUpdatedAt updatedAt;
     private String portion;
     private String imageUrl;
+    private DishCost dishCost;
 
 }

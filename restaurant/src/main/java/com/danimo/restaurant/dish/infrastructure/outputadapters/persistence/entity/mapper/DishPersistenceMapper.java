@@ -18,7 +18,8 @@ public class DishPersistenceMapper {
                 new Category(dbEntity.getCategory()),
                 DishCreatedAt.fromDomain(dbEntity.getCreatedAt()),
                 DishUpdatedAt.fromDomain(dbEntity.getUpdatedAt()),
-                dbEntity.getImageUrl()
+                dbEntity.getImageUrl(),
+                DishCost.fromBigDecimal(dbEntity.getDishCost())
         );
     }
 
@@ -33,7 +34,8 @@ public class DishPersistenceMapper {
                 dish.getCategory().getName(),
                 dish.getCreatedAt().getCreatedAt(),
                 dish.getUpdatedAt().getUpdatedAt(),
-                dish.getImageUrl()
+                dish.getImageUrl(),
+                dish.getDishCost().getCost()
         );
     }
 }

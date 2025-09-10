@@ -6,6 +6,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.math.BigDecimal;
+
 
 @Getter
 @Setter
@@ -20,4 +22,20 @@ public class Dish {
     private DishCreatedAt createdAt;
     private DishUpdatedAt updatedAt;
     private String imageUrl;
+    private DishCost dishCost;
+
+    public Dish update(String name, String description, DishPrice price, String category,
+                       String imageUrl, DishCost dishCost) {
+        return new Dish(
+                this.id,
+                name,
+                description,
+                price,
+                new Category(category),
+                this.createdAt,
+                DishUpdatedAt.generate(),
+                imageUrl,
+                dishCost
+        );
+    }
 }

@@ -17,6 +17,7 @@ public class CreateDishDto {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     private String imageUrl;
+    private BigDecimal dishCost;
 
     public Dish toDomain() {
         return new Dish(
@@ -27,7 +28,8 @@ public class CreateDishDto {
                 new Category(category),
                 DishCreatedAt.generate(),
                 DishUpdatedAt.generate(),
-                imageUrl
+                imageUrl,
+                DishCost.fromBigDecimal(dishCost)
         );
 
     }
