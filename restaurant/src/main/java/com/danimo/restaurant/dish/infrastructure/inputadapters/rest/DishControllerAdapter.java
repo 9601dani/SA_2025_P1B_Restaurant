@@ -1,5 +1,6 @@
 package com.danimo.restaurant.dish.infrastructure.inputadapters.rest;
 
+import com.danimo.restaurant.common.application.exceptions.EntityNotFoundException;
 import com.danimo.restaurant.common.infrastructure.annotations.WebAdapter;
 import com.danimo.restaurant.dish.application.inputports.CreatingDishInputPort;
 import com.danimo.restaurant.dish.application.inputports.FindingDishByIdInputPort;
@@ -112,6 +113,24 @@ public class DishControllerAdapter {
     public ResponseEntity<DishResponse> updateLocation(@RequestBody DishUpdateRequestDto dto) {
         Dish location = updatingDishInputPort.updateDish(dto.toDomain());
         return ResponseEntity.ok(DishResponse.fromDomain(location));
+    }
+
+    @Operation(
+            summary = "Verificar existencia del platillo",
+            description = "Devuelve si existe o no."
+    )
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Platillo encontrado"),
+            @ApiResponse(responseCode = "404", description = "Platillo no encontrado")
+    })
+    @RequestMapping(method = RequestMethod.HEAD, path = "/check/{id}")
+    public ResponseEntity<Void> checkPlatilloExistence(@PathVariable String id) {
+        try {
+            findingDishByIdInputPort.findById(id);
+            return ResponseEntity.ok().build();
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
 }
