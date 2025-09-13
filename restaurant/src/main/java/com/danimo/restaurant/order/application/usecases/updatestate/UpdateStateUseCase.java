@@ -2,6 +2,9 @@ package com.danimo.restaurant.order.application.usecases.updatestate;
 
 import com.danimo.restaurant.common.application.annotations.UseCase;
 import com.danimo.restaurant.common.application.exceptions.EntityNotFoundException;
+import com.danimo.restaurant.dish.application.inputports.FindingDishByIdInputPort;
+import com.danimo.restaurant.dish.application.outputports.persistence.FindingDishByIdOutputPort;
+import com.danimo.restaurant.dish.domain.Dish;
 import com.danimo.restaurant.order.application.inputports.UpdatingStateOrderInputPort;
 import com.danimo.restaurant.order.application.outputports.persistence.FindingOrderByIdOutputPort;
 import com.danimo.restaurant.order.application.outputports.persistence.StoringOrderOutputPort;
@@ -12,20 +15,26 @@ import com.danimo.restaurant.order.domain.vo.OrderId;
 import com.danimo.restaurant.order.domain.vo.OrderStatus;
 import com.danimo.restaurant.order.infrastructure.outputadapters.rest.dto.CreateMovementRequestDto;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.math.BigDecimal;
+
 @UseCase
 public class UpdateStateUseCase implements UpdatingStateOrderInputPort {
     private final FindingOrderByIdOutputPort findingOrderByIdOutputPort;
     private final StoringOrderOutputPort storingOrderOutputPort;
     private final CreatingBillOutputPort creatingBillOutputPort;
     private final CreateMovementOutputPort createMovementOutputPort;
+    private final FindingDishByIdOutputPort FindingDishByIdOutputPort;
 
     @Autowired
     public UpdateStateUseCase(FindingOrderByIdOutputPort findingOrderByIdOutputPort, StoringOrderOutputPort storingOrderOutputPort,
-                              CreatingBillOutputPort creatingBillOutputPort, CreateMovementOutputPort createMovementOutputPort) {
+                              CreatingBillOutputPort creatingBillOutputPort, CreateMovementOutputPort createMovementOutputPort,
+                              FindingDishByIdOutputPort FindingDishByIdOutputPort) {
         this.findingOrderByIdOutputPort = findingOrderByIdOutputPort;
         this.storingOrderOutputPort = storingOrderOutputPort;
         this.creatingBillOutputPort = creatingBillOutputPort;
         this.createMovementOutputPort = createMovementOutputPort;
+        this.FindingDishByIdOutputPort = FindingDishByIdOutputPort;
     }
 
 
@@ -65,6 +74,26 @@ public class UpdateStateUseCase implements UpdatingStateOrderInputPort {
 
             if (!createMovementOutputPort.isSuccess(taxMovement)) {
                 throw new RuntimeException("No se pudo registrar el movimiento de impuesto en reportes");
+            }
+            BigDecimal totalProductionCost = savedOrder.getItems().stream()
+                    .map(item -> {
+                        Dish dish = FindingDishByIdOutputPort.findById(item.getDishId().getId())
+                                .orElseThrow(() -> new EntityNotFoundException("La orden no existe"));
+                        return dish.getDishCost().getCost().multiply(BigDecimal.valueOf(item.getQuantity()));
+                    })
+                    .reduce(BigDecimal.ZERO, BigDecimal::add);
+
+            var productionCostMovement = CreateMovementRequestDto.generateDto(
+                    "RESTAURANT",
+                    "DEBIT",
+                    "Costo de producción de los platillos",
+                    totalProductionCost,
+                    savedOrder.getLocationId(),
+                    ""
+            );
+
+            if (!createMovementOutputPort.isSuccess(productionCostMovement)) {
+                throw new RuntimeException("No se pudo registrar el movimiento de costo de producción en reportes");
             }
         }
 

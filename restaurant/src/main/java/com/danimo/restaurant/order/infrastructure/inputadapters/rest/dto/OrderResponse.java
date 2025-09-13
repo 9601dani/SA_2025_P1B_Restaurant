@@ -4,6 +4,7 @@ import com.danimo.restaurant.order.domain.aggregate.Order;
 import lombok.Value;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -21,6 +22,7 @@ public class OrderResponse {
     BigDecimal discount;
     BigDecimal total;
     List<OrderItemResponseDto> items;
+    LocalDateTime createdAt;
 
     public static OrderResponse fromDomain(Order order) {
         return new OrderResponse(
@@ -35,7 +37,8 @@ public class OrderResponse {
                 order.getDiscount().getCode(),
                 order.getDiscount().getDiscount(),
                 order.getTotal(),
-                order.getItems().stream().map(OrderItemResponseDto::fromDomain).toList()
+                order.getItems().stream().map(OrderItemResponseDto::fromDomain).toList(),
+                order.getCreatedAt().getCreatedAt()
         );
     }
 }

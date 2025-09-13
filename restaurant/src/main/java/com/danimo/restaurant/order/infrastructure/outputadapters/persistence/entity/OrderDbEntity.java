@@ -22,10 +22,11 @@ import java.util.UUID;
 public class OrderDbEntity {
 
     @Id
+    @Column(columnDefinition = "CHAR(36)")
     private UUID id;
     @Column
     private String description;
-    @Column
+    @Column(columnDefinition = "CHAR(36)")
     private UUID locationId;
     @Column
     private String idClient;
@@ -43,7 +44,7 @@ public class OrderDbEntity {
     private LocalDateTime createdAt;
     @Column
     private LocalDateTime updatedAt;
-    @Column
+    @Column(columnDefinition = "CHAR(36)")
     private UUID userEmployeeId;
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)

@@ -18,9 +18,10 @@ import java.util.UUID;
 public class ItemDbEntity {
 
     @Id
+    @Column(columnDefinition = "CHAR(36)")
     private UUID id;
 
-    @Column
+    @Column(columnDefinition = "CHAR(36)")
     private UUID dishId;
     @Column
     private String dishName;

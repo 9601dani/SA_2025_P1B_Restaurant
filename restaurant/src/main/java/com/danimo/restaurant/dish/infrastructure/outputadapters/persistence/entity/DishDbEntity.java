@@ -21,6 +21,7 @@ import java.util.UUID;
 @AllArgsConstructor
 public class DishDbEntity {
     @Id
+    @Column(columnDefinition = "CHAR(36)")
     private UUID id;
     @Column
     private String name;
